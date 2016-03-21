@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Devoir 1 - Boutique de livres</title>
+        
+        <style type="text/css">
+            
+            #wrapper {font-size:10pt; font-family:helvetica, arial, sans-serif; width:850px;}
+            #storewrapper {float:left; width:370px; background-color:#eaeaea; margin-right:10px; padding-bottom:20px}
+            #orderswrapper {float:left;width:400px; background-color:#CCC; display:none}
+            h2, h3 {padding:0; margin:0; padding-left:5px}
+            h3 {margin-top:10px; }
+            .title {width:175px; text-align:left}
+            .lrpadding {padding:5px; font-weight:bold}
+            .tpadding {padding-top:5px;}
+            .tmargin {margin-top:20px;}
+            .clearing {clear:both}
+            .clearing em {font-weight:bold}
+            .actionbuttons {margin-top:15px}
+            
+            
+            
+            #details {background-color:pink; width:400px; float:right}
+            #fruits {float:left; width:400px; background-color:#CCCCCC}
+            #envelopper {width:600px;}
+            
+            .lname {color:#33CCFF; width: 100px; text-align:left}
+            .prix {color:#FF9999; text-align:left; width:75px}
+            .qty {color:black; width: 90px; text-align:left}
+            .clearing {clear:both}
+            
+            </style>
+        
+        <script type="text/javascript">
+            
+            function calculerAfficherDetailsAchats()
+            {
+                
+                
+                var livresCuisineObj = document.forms.tousLesLivres.livresCuisine;
+                var livresBasedonnes = document.forms.tousLesLivres.livresBasedonnees;
+                var livresInternet = document.forms.tousLesLivres.livresInternet;
+                
+                var detailsObj = document.getElementById("orderswrapper");
+                
+                
+                /* Header */
+                
+                var header = "<table><th class ='lname'>Livers</th>"+
+                "<th class='prix'>Prix</th><th class='qty'>Quantite</th><th class='total'>Total</th><tr>";
+                
+                
+                /*Body */
+                var body = "";
+               
+                var livresCuisineDesc = ["Tartes Salés", "Machines à pain", "Fumage et salaisons"];
+                var livresBasedonnesDesc = ["SQL Server 2014", "PHP, MySQL et CSS", "Orcale 12-C, SQL et PL/SQL"];
+                
+                
+                
+                for(var w = 0; w < livresCuisineDesc.length; w++)
+                {
+               
+               if(livresCuisineObj[w].checked)
+               {
+                   var prix = parseFloat(livresCuisineObj[w].value);
+                  
+                   var a = w + 1;
+                   var qty = "c" + a + "qty";
+                   var qty = document.forms.tousLesLivres[qty].value; //value that I inputted
+                   var total = prix*qty + "$";
+                  
+                   body = body + "<tr><td class='fname'>"+livresCuisineDesc[w] + "</td>"+"<td class='prix'>"+prix+"</td><td class='qty'>"+qty+"</td><td>"+total+"</td></tr>";
+                   
+               }
+                }
+               
+               
+               
+                
+                for (var w = 0; w < livresBasedonnesDesc.length; w++)
+                {
+                  
+                    
+                    if(livresBasedonnes[w].checked)
+                    {
+                        
+                        var prix = parseFloat(livresBasedonnes[w].value);
+                        var a = w + 1;
+                        var qty = "b" + a + "qty";
+                        var qty = document.forms.tousLesLivres[qty].value; //value that I inputted
+                        var total = prix*qty + "$";
+                        
+                        body = body + "<tr><td class='fname'>"+livresBasedonnesDesc[w] + "</td>"+"<td class='prix'>"+prix+"</td><td class='qty'>"+qty+"</td><td>"+total+"</td></tr>";
+                    }
+                    
+                    
+                }
+               
+               
+                var livresInternetDesc = ["Methodes de design UX", "Java 8, les fondamentaux", "Photoshop CS6 por les nulls"];
+                
+                for (var w = 0; w < livresInternetDesc.length;w++)
+                {
+                    if(livresInternet[w].checked)
+                    {
+                        
+                        var prix = parseFloat(livresInternet[w].value);
+                        var a = w + 1;
+                        var qty = "i" + a + "qty";
+                        var qty = document.forms.tousLesLivres[qty].value; //value that I inputted
+                        var total = prix*qty + "$";
+                        
+                        body = body + "<tr><td class='fname'>"+livresInternetDesc[w] + "</td>"+"<td class='prix'>"+prix+"</td><td class='qty'>"+qty+"</td><td>"+total+"</td></tr>";
+                    }
+                    
+                }
+                
+                    
+                    
+                    /*Footer*/
+                    var footer = "</table>";
+                    details = header + body + footer;
+                    
+                    detailsObj.innerHTML = details;
+                    detailsObj.style.display = "block";
+                    
+                    
+                }
+                
+                
+                
+                
+                
+            </script>
+        
+    </head>
+    <body>
+        
+        
+        <!--Enveloppe principale - wrapper -->
+        <div id="wrapper">
+            <h1> Devoir 1 - Boutique  de livres </h1>
+            <form id="tousLesLivres" name="tousLesLivres">
+                
+                <!--Enveloppe boutique - storewrapper -->
+                <div id="storewrapper">
+                    
+                    <div>
+                        
+                        <!--Liste des livres de cuisine -->
+                        <div class="cuisine">
+                            <h3>Cuisine</h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th class="title">Titre</th>
+                                    <th class="lrpadding">Prix</th>
+                                    <th>Quantit&eacute;</th>
+                                </tr>
+                                <tr>
+                                    <td ><input type="checkbox" name="livresCuisine" value="29.95"/></td>
+                                    <td class="title" id="c1titre">Tartes sal&eacute;s</td>
+                                    <td class="lrpadding">$29.95</td>
+                                    <td><input type="text" name="c1qty" size="4"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="livresCuisine" value="17.95"/></td>
+                                    <td class="title" id="c2titre">Machines &agrave; pain</td>
+                                    <td class="lrpadding">$17.95</td>
+                                    <td><input type="text" name="c2qty" size="4"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="livresCuisine" value="39.99"/></td>
+                                    <td class="title" id="c3titre">Fumage et salaisons</td>
+                                    <td class="lrpadding">$39.99</td>
+                                    <td><input type="text" name="c3qty" size="4"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- fin de la liste des livres de cuisine -->
+                        
+                        <!--Liste des livres de base donnees -->
+                        <div class="basedonnees">
+                            <h3>Base de donnt&eacute;es </h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th class="title">Titre</th>
+                                    <th class="lrpadding">Prix</th>
+                                    <th>Quantit&eacute;</th>
+                                </tr>
+                                <tr>
+                                    <td ><input type="checkbox" name="livresBasedonnees" value="75.99"/></td>
+                                    <td class="title" id="b1titre">SQL Server 2014</td>
+                                    <td class="lrpadding">$75.99</td>
+                                    <td><input type="text" name="b1qty" size="4"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="livresBasedonnees" value="20.21"/></td>
+                                    <td class="title" id="b2titre">PHP, MySQL et CSS</td>
+                                    <td class="lrpadding">$20.21</td>
+                                    <td><input type="text" name="b2qty" size="4"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="livresBasedonnees" value="49.99"/></td>
+                                    <td class="title" id="b3titre">Orcale 12-C, SQL et PL/SQL</td>
+                                    <td class="lrpadding">$49.95</td>
+                                    <td><input type="text" name="b3qty" size="4"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- fin de la liste des livres de donnees -->
+                        
+                        
+                        <!--Liste des livres de l'internet -->
+                        <div class="internet">
+                            <h3>Internet</h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th class="title">Titre</th>
+                                    <th class="lrpadding">Prix</th>
+                                    <th>Quantit&eacute;</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="livresInternet" value="22.99"/></td>
+                                    <td class="title" id="i1titre">M&eacute;thodes de design UX</td>
+                                    <td class="lrpadding">$22.99</td>
+                                    <td><input type="text" name="i1qty" size="4"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="livresInternet" value="44.96"  /></td>
+                                    <td class="title" id="i2titre">Java 8, les fondamentaux</td>
+                                    <td  class="lrpadding">$44.96</td>
+                                    <td><input type="text" name="i2qty" size="4"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="livresInternet" value="25.16" /></td>
+                                    <td class="title" id="i3titre">Photoshop CS6 por les nulls</td>
+                                    <td class="lrpadding">$25.16</td>
+                                    <td><input type="text" name="i3qty" size="4"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- fin de la liste des livres de l'internet -->
+                        
+                        
+                    </div>
+                    
+                    <!--Boutons pour les declencher les actions -->
+                    <div class="actionbuttons">
+                        <input type="reset" value="Recomposer"/> <input type="button" value="Afficher panier des achats" onClick="calculerAfficherDetailsAchats()"/>
+                    </div>
+                    <!-- fin des boutons actions-->
+                    
+                </div>
+            </form>
+            <!-- fin de l'enveloppe boutique-->
+            
+            <!--enveloppe commandes-->
+            <div id="orderswrapper">
+                
+            </div>
+            <!--fin de l'enveloppe commandes-->
+            
+        </div>
+        <!--fin de l'enveloppe principale -->
+        <div class="clearing">Con&ccedil;u et realis&eacute; par <em>Nidhi Sarathmohan </em> </div>
+        
+    </body>
+</html>
